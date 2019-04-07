@@ -1,0 +1,22 @@
+filename = 'transition.xlsx';
+
+files = dir('*.wav');
+audio = cell(1,1579);
+
+A = zeros(1579,161);
+
+for k = 1:1579
+
+%      Reading an audio file
+    audio{k} = audioread(files(k).name);
+    [Y, Fs] = audioread(files(k).name);
+    A(k, 1) = k;
+    
+    for j = 2:161
+        A(k,j) = Y(j-1);
+    end
+end
+
+xlswrite(filename,A);
+    
+disp('finished');
